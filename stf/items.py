@@ -8,7 +8,7 @@
 import scrapy
 
 
-class StfItem(scrapy.Item):
+class Decisao(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    id = scrapy.Field()
+    decisao = scrapy.Field()

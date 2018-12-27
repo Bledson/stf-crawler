@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+import time
+
 import pandas as pd
 import scrapy
-import time
+
+from stf.items import Decisao
 
 dec_mono = pd.read_excel("decisoes_monocraticas_lista_presidente_2013.xlsx",
                          header=0, dtype={"Número": str})
@@ -32,8 +35,6 @@ class StfSpider(scrapy.Spider):
 
     def parse_decisao(self, response):
         decisao = response.xpath(
-            "//div[@id=\"abaAcompanhamentoConteudoResposta\"]/div"
+            "//div[@id=\"abaAcompanhamentoConteudoResposta\"]/div/text()"
         ).extract_first()
-        yield {
-            response.meta["id"]: decisao
-        }
+        yield Decisao(id=response.meta["id"], decisao=decisao)
